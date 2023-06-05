@@ -3,7 +3,7 @@ import {readFile} from 'fs/promises'
 import {INestApplication} from '@nestjs/common'
 import {DocumentBuilder, SwaggerModule} from '@nestjs/swagger'
 
-import {ApiError} from '../middlewares/api-error'
+import {ApiError} from '../middlewares'
 
 export async function useSwagger(app: INestApplication) {
   const packageJson = JSON.parse(await readFile('package.json', 'utf8'))

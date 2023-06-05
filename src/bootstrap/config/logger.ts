@@ -1,7 +1,7 @@
 import {INestApplication, LoggerService, LogLevel} from '@nestjs/common'
 import {v4 as uuid} from 'uuid'
 
-import {now} from 'src/utils/now'
+import {now} from '~/utils'
 
 export function createLogger(
   app: INestApplication,
