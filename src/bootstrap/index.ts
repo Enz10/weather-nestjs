@@ -10,6 +10,9 @@ export default async function bootstrap() {
   const logger = createLogger(app, '*')
 
   app.useLogger(logger)
+  app.enableCors({
+    maxAge: 86400 // 24 hours
+  })
 
   await useSwagger(app)
 

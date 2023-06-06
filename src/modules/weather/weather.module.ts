@@ -1,11 +1,20 @@
 import {HttpModule} from '@nestjs/axios'
 import {DynamicModule, Module} from '@nestjs/common'
-import {WeatherService} from './weather.service'
 import {WeatherController} from './weather.controller'
+import {CqrsModule, QueryHandler} from '@nestjs/cqrs'
+import {WeatherRepository} from './repository/weather.repository'
+import {ForecastRepository} from './repository/forecast.repository'
+import {LocationRepository} from './repository/location.repository'
+import {QueryHandlers} from './queries/handlers'
 
 @Module({
-  imports: [HttpModule],
-  providers: [WeatherService],
+  imports: [CqrsModule, HttpModule],
+  providers: [
+    WeatherRepository,
+    ForecastRepository,
+    LocationRepository,
+    ...QueryHandlers
+  ],
   controllers: [WeatherController]
 })
 export class WeatherModule {
@@ -13,8 +22,18 @@ export class WeatherModule {
     return {
       module: WeatherModule,
       imports: [HttpModule],
-      providers: [WeatherService],
-      exports: [WeatherService],
+      providers: [
+        WeatherRepository,
+        ForecastRepository,
+        LocationRepository,
+        ...QueryHandlers
+      ],
+      exports: [
+        WeatherRepository,
+        ForecastRepository,
+        LocationRepository,
+        ...QueryHandlers
+      ],
       global: true
     }
   }
